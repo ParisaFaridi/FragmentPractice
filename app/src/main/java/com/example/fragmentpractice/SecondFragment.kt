@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 
 class SecondFragment : Fragment() {
 
@@ -22,6 +25,16 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val text = requireArguments().getString("text")
+        val visibility = requireArguments().getBoolean("visibility")
+        val textview = view.findViewById<TextView>(R.id.tv_text)
+        if (visibility){
+            textview.text = text
+        }
+        val button = view.findViewById<Button>(R.id.btn2GoTo3)
+        button.setOnClickListener {
+            findNavController().navigate(R.id.action_secondFragment_to_thirdFragment)
+        }
     }
 
 }
