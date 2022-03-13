@@ -33,7 +33,8 @@ class SecondFragment : Fragment() {
         }
         val button = view.findViewById<Button>(R.id.btn2GoTo3)
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_secondFragment_to_thirdFragment)
+            val action = SecondFragmentDirections.actionSecondFragmentToThirdFragment(2,"hello")
+            findNavController().navigate(action)
         }
     }
 

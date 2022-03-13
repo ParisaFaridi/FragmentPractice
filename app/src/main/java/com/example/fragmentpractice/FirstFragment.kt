@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.fragmentpractice.databinding.FragmentFistBinding
 
 class FistFragment : Fragment() {
+    lateinit var binding : FragmentFistBinding
+    val viewModel: FirstFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +25,14 @@ class FistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fist, container, false)
+        binding = FragmentFistBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.textView2.text = viewModel.number.toString()
         val button2 = view.findViewById<Button>(R.id.btnGoTo2)
         val bundle = bundleOf("text" to "Parisa" , "visibility" to false)
         button2.setOnClickListener {
@@ -42,5 +47,11 @@ class FistFragment : Fragment() {
             findNavController().navigate(R.id.action_fistFragment_to_forthFragment)
         }
 
+        binding.button.setOnClickListener {
+            viewModel.increase()
+            binding.textView2.text = viewModel.number.toString()
+        }
+
     }
+
 }
